@@ -4,6 +4,7 @@
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import Image from 'next/image';
 
 const ClientDetailsPage = () => {
   const router = useRouter();
@@ -71,7 +72,7 @@ const ClientDetailsPage = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
         <div className="flex items-center gap-4 mb-4">
-          <img
+          <Image 
             src={client.profileImage}
             alt="Profile"
             className="h-24 w-24 object-cover rounded-full border"
@@ -89,7 +90,7 @@ const ClientDetailsPage = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Business Information</h2>
         <div className="flex items-center gap-4 mb-4">
-          <img
+          <Image 
             src={client.businessLogo}
             alt="Business Logo"
             className="h-24 w-24 object-cover rounded border"
@@ -114,7 +115,7 @@ const ClientDetailsPage = () => {
       <section>
         <h2 className="text-xl font-semibold mb-4">Identity Verification</h2>
         <div className="flex items-center gap-4">
-          <img
+          <Image 
             src={client.idDocument}
             alt="ID Document"
             className="h-24 w-32 object-cover border rounded"

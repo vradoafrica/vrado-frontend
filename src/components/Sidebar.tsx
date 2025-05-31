@@ -1,5 +1,5 @@
 "use client"
-import { Home, BarChart2, Settings, Menu,Users,UserCircle,LayoutDashboard,LifeBuoy} from "lucide-react";
+import {Settings, Menu,Users,LayoutDashboard,LifeBuoy} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";

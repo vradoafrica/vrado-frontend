@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
-import Modal from "@/components/modal";
+
 
 export default function ClientsPage() {
   const allClients = [
