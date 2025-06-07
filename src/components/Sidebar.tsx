@@ -1,47 +1,93 @@
+// components/Sidebar.tsx
 "use client"
-import {Settings, Menu,Users,LayoutDashboard,LifeBuoy} from "lucide-react";
+import { Settings, Menu, Users, LayoutDashboard, LifeBuoy, X,User} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-
 export default function SideBar() {
-    const [collapsed,setCollapsed] = useState(true)
-    const pathname = usePathname();
- 
+  const [collapsed, setCollapsed] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
-    const links = [
-        { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
-        { name: 'Clients', href: '/dashboard/clients', icon: <Users size={20} /> },
-        { name: 'Settings', href: '/dashboard/settings', icon: <Settings size={20} /> },
-        { name: 'Support', href: '/dashboard/support', icon: <LifeBuoy size={20} /> },
-      ];
-    return (
-      <aside className={`bg-white shadow-md ${collapsed ? 'w-20' : 'w-64'} sticky h-screen top-0 transition-all duration-300 hidden md:block`}>
-        <div className="p-6 text-xl font-bold flex items-center justify-between">
-          {!collapsed && <span>Dashboard</span>}
-          <button onClick={() => setCollapsed(!collapsed)} className="text-gray-600">
-            <Menu size={20} />
-          </button>
-        </div>
-        <nav className="p-6 space-y-6 text-gray-700">
+  const links = [
+    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'Clients', href: '/dashboard/clients', icon: <Users size={20} /> },
+    { name: 'Settings', href: '/dashboard/settings', icon: <Settings size={20} /> },
+    { name: 'Support', href: '/dashboard/support', icon: <LifeBuoy size={20} /> },
+  ];
 
+  const SidebarContent = (
+    <div className={`bg-white shadow-md ${collapsed ? 'w-20' : 'w-64'} h-full transition-all duration-300 p-6`}>
+      <div className="text-xl font-bold flex items-center justify-between mb-6">
+        {!collapsed && <span>Dashboard</span>}
+        <button onClick={() => setCollapsed(!collapsed)} className="text-gray-600">
+          <Menu size={20} />
+        </button>
+      </div>
+      <nav className="space-y-6 text-gray-700">
         {links.map(link => (
           <Link
             key={link.name}
             href={link.href}
             className={`flex items-center space-x-3 hover:text-blue-600 transition ${
-              pathname === link.href ? 'text-blue-700' : ''
+              pathname === link.href ? 'text-blue-700 font-semibold' : ''
             }`}
+            onClick={() => setMobileOpen(false)}
           >
-            
-            {collapsed ? <span className={pathname === link.href ? 'text-blue-700' : ''}>{link.icon}</span> :<span>{link.name}</span>}
-           
+            <span className="shrink-0">{link.icon}</span>
+            {!collapsed && <span>{link.name}</span>}
           </Link>
         ))}
+      </nav>
+    </div>
+  );
 
-        </nav>
+  return (
+    <div className="sticky top-0">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:block sticky top-0 h-screen">
+        {SidebarContent}
       </aside>
-    );
-  }
-  
+
+      {/* Mobile Sidebar Toggle Button */}
+      <div className="md:hidden p-4">
+        <button onClick={() => setMobileOpen(true)} className="text-gray-600">
+          <Menu size={24} />
+        </button>
+      </div>
+
+      {/* Mobile Sidebar */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex top">
+          <div className="bg-white w-64 h-full p-6 shadow-lg">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg font-bold">Menu</h2>
+              <button onClick={() => setMobileOpen(false)} className="text-gray-600">
+                <X size={20} />
+              </button>
+            </div>
+            {SidebarContent}
+            <div className="md:hidden px-4 pb-4">
+          <div className="flex flex-col items-start space-y-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="border px-3 py-1 rounded-lg w-full"
+            />
+            <div className="flex items-center space-x-3">
+              <User className="text-gray-600" />
+              <span className="text-gray-700">Profile</span>
+            </div>
+            <button className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 w-full">
+              Logout
+            </button>
+          </div>
+        </div>
+          </div>
+          <div className="flex-1" onClick={() => setMobileOpen(false)}></div>
+        </div>
+      )}
+    </div>
+  );
+}

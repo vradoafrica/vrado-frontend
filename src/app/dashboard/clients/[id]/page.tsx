@@ -75,6 +75,8 @@ const ClientDetailsPage = () => {
           <Image 
             src={client.profileImage}
             alt="Profile"
+            width={100}
+            height={100}
             className="h-24 w-24 object-cover rounded-full border"
           />
           <div>
@@ -93,6 +95,8 @@ const ClientDetailsPage = () => {
           <Image 
             src={client.businessLogo}
             alt="Business Logo"
+            width={100}
+            height={100}
             className="h-24 w-24 object-cover rounded border"
           />
           <div>
@@ -118,6 +122,8 @@ const ClientDetailsPage = () => {
           <Image 
             src={client.idDocument}
             alt="ID Document"
+            height={100}
+            width={100}
             className="h-24 w-32 object-cover border rounded"
           />
           <div>

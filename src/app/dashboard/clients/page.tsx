@@ -1,7 +1,7 @@
 'use client';
 
+import RegistrationModal from "@/components/businessReg";
 import React, { useState } from "react";
-
 
 export default function ClientsPage() {
   const allClients = [
@@ -29,7 +29,8 @@ export default function ClientsPage() {
   const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
 
   return (
-    <div className="p-6">
+    <div className="p-4">
+      {/* <RegistrationModal isOpen={true} onClose={()=>console.log("closed")}/> */}
       <h1 className="text-2xl font-semibold mb-4">Client List</h1>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
         <input
@@ -56,28 +57,28 @@ export default function ClientsPage() {
           </select>
         </div>
       </div>
+
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded shadow">
-          <thead>
-            <tr className="text-left border-b">
-              <th className="p-4">ID</th>
-              <th className="p-4">Name</th>
-              <th className="p-4">Email</th>
-              <th className="p-4">Phone</th>
-              <th className="p-4">Actions</th>
+          <thead className="hidden md:table-header-group">
+            <tr className="text-left border-b bg-gray-100">
+              <th className="p-4 whitespace-nowrap">ID</th>
+              <th className="p-4 whitespace-nowrap">Name</th>
+              <th className="p-4 whitespace-nowrap">Email</th>
+              <th className="p-4 whitespace-nowrap">Phone</th>
+              <th className="p-4 whitespace-nowrap">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentClients.map((client) => (
-              <tr key={client.id} className="hover:bg-gray-100 border-b">
-                <td className="p-4">{client.id}</td>
-                <td className="p-4">{client.name}</td>
-                <td className="p-4">{client.email}</td>
-                <td className="p-4">{client.phone}</td>
-                <td className="p-4">
+              <tr key={client.id} className="border-b hover:bg-gray-50 mb-10">
+                <td className="p-4 block md:table-cell font-semibold md:font-normal">{client.id}</td>
+                <td className="p-4 block md:table-cell">{client.name}</td>
+                <td className="p-4 hidden md:table-cell">{client.email}</td>
+                <td className="p-4 hidden md:table-cell">{client.phone}</td>
+                <td className="p-4 block md:table-cell">
                   <a href={`./clients/${client.id}`} className="text-blue-600 hover:underline">
-                 View Details
-                  
+                    View Details
                   </a>
                 </td>
               </tr>
@@ -85,7 +86,8 @@ export default function ClientsPage() {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center mt-4 space-x-2">
+
+      <div className="flex flex-wrap justify-center mt-4 space-x-2">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index + 1}
@@ -96,9 +98,6 @@ export default function ClientsPage() {
           </button>
         ))}
       </div>
-      {/* <Modal show={true} onClose={()=>console.log("hi") } key={1} message="Are you sure you ant to proceed?" title="Proceed to Register"/> */}
     </div>
-
-  
   );
 }

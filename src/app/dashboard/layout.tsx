@@ -17,7 +17,7 @@ export default function Layout({
       <Topnav />
 
         {/* Dashboard Content */}
-        <main className="p-6 space-y-6">
+        <main className="md:p-6 p-0 md:pt-4 pt-10 space-y-6">
         {children}
         </main>
       </div>

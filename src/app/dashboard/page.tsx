@@ -1,7 +1,11 @@
+"use client"
+import { useSession } from "next-auth/react";
+
+
 
 export default function Dashboard() {
 
-
+console.log(useSession())
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     <div className="bg-white p-4 rounded shadow hover:shadow-md transition">
