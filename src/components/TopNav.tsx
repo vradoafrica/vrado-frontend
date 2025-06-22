@@ -6,12 +6,12 @@ import Image from "next/image"
 
 export default function Topnav() {
   const {data} = useSession()
- console.log(data?.user)
+ const imageSrc = data?.user?.image
   
  function Profile(){
   
   switch(Boolean(data?.user?.image)){
-    case true:return <Image  className='rounded-full' src={data?.user?.image} height={100} width={100} alt="profile-pics"/>;
+    case true:return <Image  className='rounded-full' src={imageSrc || ""} height={100} width={100} alt="profile-pics"/>;
     break;
     default:return <User className="text-gray-600" />;
    }

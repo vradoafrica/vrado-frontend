@@ -14,9 +14,10 @@ export default function SiginWithGoogle(){
         if(data?.user?.email){
             console.log(data?.user?.email)      
         }else{
-            await signIn("google", {
+            const googleResponse = await signIn("google", {
                 callbackUrl: "/dashboard",
               });
+              console.log(googleResponse)
         }
 
 
