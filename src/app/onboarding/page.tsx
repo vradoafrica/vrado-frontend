@@ -27,7 +27,7 @@ export default function BusinessSetupPage() {
     }catch(err){
       console.log(err)
     }
-  },[])
+  },[token])
    
 
   const [form, setForm] = useState({
