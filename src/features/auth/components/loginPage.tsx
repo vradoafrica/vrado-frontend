@@ -1,9 +1,8 @@
 "use client"
-import SiginWithGoogle from "@/components/signinWithGoogle";
-import { signInWithEmail, verifyOtp } from "../services/api";
 import { useState } from "react";
-import Router from "next/router";
-
+import Cookies from "js-cookie"
+// import SiginWithGoogle from "@/components/signinWithGoogle";
+import { signInWithEmail, verifyOtp } from "../services/api";
 
 
 export default function LoginPage() {
@@ -13,7 +12,7 @@ export default function LoginPage() {
   const [otp, setOtp] = useState("")
   const [busy, setBusy] = useState(false)
 
-  let isFormValid = (otpSent) ? email.includes('@') && otp.length === 6 : email.includes('@');
+  const isFormValid = (otpSent) ? email.includes('@') && otp.length === 6 : email.includes('@');
 
 
   async function handleSubmit(e: any) {
@@ -26,13 +25,19 @@ export default function LoginPage() {
       case true:
         
         const verify = await verifyOtp(email,otp)
-        setBusy(true)
-        Router.push("/dashboard")
+        const oneHourFromNow = new Date(new Date().getTime() + 60 * 60 * 1000);
+
+        Cookies.set("token", verify.data.token, {
+          path: "/",
+          expires: oneHourFromNow,
+        });
+        setBusy(false)
+        window.location.replace("/dashboard")
         break;
 
       default:
         const request = await signInWithEmail(email)
-        console.log(request)
+         console.log(request)
          setOtpSent(request.success)
          setBusy(false)
         break;
@@ -64,11 +69,11 @@ export default function LoginPage() {
           </button>
 
 
-          <SiginWithGoogle />
+          {/* <SiginWithGoogle /> */}
 
-          <div className="mt-6 text-center text-sm">
+          {/* <div className="mt-6 text-center text-sm">
             Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register</a>
-          </div>
+          </div> */}
           <div className="text-center text-sm mt-2">
             <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</a>
           </div>

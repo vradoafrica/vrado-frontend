@@ -1,6 +1,3 @@
-import { redirect } from "next/navigation";
-
-
 export default function LandingPage() {
     return (
       <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">

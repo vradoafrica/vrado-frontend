@@ -1,6 +1,4 @@
 'use client';
-
-import RegistrationModal from "@/components/businessReg";
 import React, { useState } from "react";
 
 export default function ClientsPage() {

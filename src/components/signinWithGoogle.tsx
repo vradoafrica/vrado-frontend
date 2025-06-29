@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import google from "../images/google-icon.svg"
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 
 

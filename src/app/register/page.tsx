@@ -1,25 +1,24 @@
 "use client"
 import { useState } from 'react'
-import { redirect } from "next/navigation";
-import SiginWithGoogle from "@/components/signinWithGoogle";
+// import SiginWithGoogle from "@/components/signinWithGoogle";
 
-const handleSubmit = async (email,password) => {
+// const handleSubmit = async (email,password) => {
    
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password, email }),
-    });
+//     const res = await fetch('/api/register', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ password, email }),
+//     });
 
     
-  };
+//   };
 
 
   export default function SignupPage() {
 
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [response, setResponse] = useState<string | null>(null);
+  // const [response, setResponse] = useState<string | null>(null);
 
  
     return (
@@ -33,7 +32,7 @@ const handleSubmit = async (email,password) => {
             <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
               Sign Up
             </button >
-           <SiginWithGoogle />
+           {/* <SiginWithGoogle /> */}
           </form>
           <div className="mt-6 text-center text-sm">
             Already have an account? <a href="/login" className="text-blue-600 hover:underline">Login</a>

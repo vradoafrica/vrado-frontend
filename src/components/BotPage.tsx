@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import Image from 'next/image';
 
 export default function BotConnectionModal() {
   const [isConnected, setIsConnected] = useState(false);
@@ -84,7 +85,7 @@ export default function BotConnectionModal() {
                   <div className="mt-2">
                     <p className="text-sm text-gray-500 mb-4">Scan the QR code below to complete the bot setup.</p>
                     <div className="flex justify-center">
-                      <img
+                      <Image
                         src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=bot-connect-token"
                         alt="QR Code"
                         className="border rounded p-2 bg-gray-100"

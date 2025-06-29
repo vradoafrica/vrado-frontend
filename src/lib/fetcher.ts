@@ -1,16 +1,21 @@
 export async function fetcher(url: string, options?: RequestInit){
+
+  try {
     const res = await fetch(url, {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      ...options
     });
-  
+    
     if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      throw new Error(errorData.message || `Request failed: ${res.status}`);
+      
+      throw new Error(`Request failed: ${res.status}`);
     }
-  
+
+      
     return res.json();
+  } catch (error) {
+    return error
+  }
+  
+
   }
   

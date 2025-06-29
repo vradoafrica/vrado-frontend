@@ -1,24 +1,15 @@
 "use client"
 import { User } from "lucide-react"
-import { useSession,signOut} from "next-auth/react"
 import Image from "next/image"
+import Cookies from "js-cookie"
 
 
 export default function Topnav() {
-  const {data} = useSession()
- const imageSrc = data?.user?.image
+  const token = Cookies.get("token");
   
- function Profile(){
-  
-  switch(Boolean(data?.user?.image)){
-    case true:return <Image  className='rounded-full' src={imageSrc || ""} height={100} width={100} alt="profile-pics"/>;
-    break;
-    default:return <User className="text-gray-600" />;
-   }
-  
+ function logout(){
+  Cookies.remove("token")
  }
-
- 
  
  return (
     <header className="hidden bg-white shadow-md sticky top-0 p-4 md:flex items-center justify-between">
@@ -26,11 +17,11 @@ export default function Topnav() {
       <div className="space-x-4 flex items-center">
       
       <div className="w-10 h-10 flex items-center justify-center">
-        {Profile()}
+      <User className="text-gray-600" />
       </div>
 
 
-       {data?.accessToken?(<button onClick={signOut} className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
+       {token?(<button onClick={logout} className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
           Logout
         </button>):<></>}
       

@@ -1,17 +1,18 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getToken } from "next-auth/jwt";
-import { cookies } from 'next/headers';
-
+// import { getUserDetails } from './features/auth/services/api.js';
+// import { getUserDetails } from './features/auth/services/api.js';
 
 
 
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
-  const allCookies = await cookies()
-  const token = allCookies.get("token")
-  console.log(token)
+
+
+  const token = req.cookies.get('token')?.value
+
+  // const token = await getUserDetails()
     if(!token)return NextResponse.redirect(new URL('/login', req.url))
 }
  

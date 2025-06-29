@@ -164,7 +164,7 @@ const SupportPage = () => {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Your support request has been submitted. We'll get back to you shortly.
+                      Your support request has been submitted. We will get back to you shortly.
                     </p>
                   </div>
 
