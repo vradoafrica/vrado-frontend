@@ -1,7 +1,7 @@
 'use client'
 
-import { fetcher } from '@/lib/fetcher'
-import { useEffect, useState } from 'react'
+import { fetcher } from '@/utils/fetcher'
+import { useState } from 'react'
 import  Cookies  from 'js-cookie';
 import { createBusiness } from '@/features/auth/services/api';
 import { useRouter } from 'next/navigation';
@@ -14,21 +14,6 @@ export default function BusinessSetupPage() {
   if(!token){
     router.push("/login")
   }
-
-  useEffect(()=>{
-    try{
-      fetcher(' https://vrado-backend.onrender.com/api/v1/business', {
-        method: 'GET',
-        headers:{
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        }
-      }).then(()=>{router.push("/dashboard")});
-    }catch(err){
-      console.log(err)
-    }
-  },[token])
-   
 
   const [form, setForm] = useState({
     name: '',
