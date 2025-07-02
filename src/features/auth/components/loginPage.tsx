@@ -17,6 +17,7 @@ export default function LoginPage() {
   if(token){
     window.location.replace("/dashboard");
   }
+  
 
 
   const isFormValid = otpSent ? email.includes("@") && otp.length === 6 : email.includes("@");

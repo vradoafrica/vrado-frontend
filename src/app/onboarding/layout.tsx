@@ -9,9 +9,9 @@ export default async function Layout({
   const cookieStore = await cookies()
   const token = cookieStore.get("token")?.value || ""
   const businessDetails = await getBusinessDetails(token)
-
+  
   if(businessDetails?.success)throw redirect("/dashboard")
-   
+    
 
 
   return (<>{children}</>);
