@@ -12,6 +12,11 @@ export default function LoginPage() {
   const [otp, setOtp] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<any>(false);
+  const token = Cookies.get('token')
+  
+  if(token){
+    window.location.replace("/dashboard");
+  }
 
 
   const isFormValid = otpSent ? email.includes("@") && otp.length === 6 : email.includes("@");

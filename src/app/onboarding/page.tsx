@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -10,9 +10,13 @@ export default function BusinessSetupPage() {
   const router = useRouter()
   const token = Cookies.get('token')
 
-  if (!token) {
-    router.push('/login')
-  }
+
+  useEffect(() => {
+    const t = Cookies.get('token');
+    if (!t) {
+      router.push('/login');
+    }
+  }, [router]);
 
   const [form, setForm] = useState({
     name: '',
