@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<any>(false);
 
 
   const isFormValid = otpSent ? email.includes("@") && otp.length === 6 : email.includes("@");
@@ -29,8 +29,9 @@ export default function LoginPage() {
         const request = await signInWithEmail(email);
         setOtpSent(request.success);
       }
-    } catch (error) {
-      alert("Unable to Verify User")
+    } catch (err) {
+      setError("Unale to Verify")
+      console.log(err)
     } finally {
       setBusy(false);
     }
@@ -52,7 +53,7 @@ export default function LoginPage() {
             name="Email Address" 
             placeholder="Email" 
             value={email} 
-            onChange={(e) => 
+            onChange={(e:any) => 
             setEmail(e.target.value)} 
             error={error} />
             
@@ -70,7 +71,7 @@ export default function LoginPage() {
                   type="text"
                   placeholder="Enter OTP"
                   value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
+                  onChange={(e:any) => setOtp(e.target.value)}
                   error={error}
                   />
               </motion.div>

@@ -1,10 +1,12 @@
 // app/ngo-registration/page.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import Image from 'next/image';
+
 
 
 export default function NGORegistrationPage() {
@@ -135,7 +137,7 @@ export default function NGORegistrationPage() {
                       }}
                     />
                     {formData[key]?.type?.startsWith('image') && formData[key].previewUrl && (
-                      <img src={formData[key].previewUrl} alt={`${key} preview`} className="h-32 object-contain border rounded-md" />
+                      <Image src={formData[key].previewUrl} alt={`${key} preview`} className="h-32 object-contain border rounded-md" />
                     )}
                     {formData[key]?.type === 'application/pdf' && (
                       <div className="text-xs text-gray-500 italic">📄 {formData[key].name}</div>
@@ -157,7 +159,7 @@ export default function NGORegistrationPage() {
                     <div key={key} className="flex flex-col">
                       <span className="text-xs text-gray-500 uppercase font-semibold">{key.replace(/([A-Z])/g, ' $1')}</span>
                       {formData[key]?.previewUrl ? (
-                        <img src={formData[key].previewUrl} alt={key} className="h-24 mt-1 rounded border object-contain" />
+                        <Image src={formData[key].previewUrl} alt={key} className="h-24 mt-1 rounded border object-contain" />
                       ) : (
                         <span className="text-sm text-gray-800 mt-1 break-words">
                           {typeof formData[key] === 'object' && formData[key]?.name ? formData[key].name : formData[key]}

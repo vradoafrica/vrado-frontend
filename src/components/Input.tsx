@@ -1,4 +1,4 @@
-export default function Input({inputRefs,name, placeholder, type = 'text', value, onChange, error }:any){
+export default function Input({name, placeholder, type = 'text', value, onChange, error }:any){
     return (
             <div className="relative">
               <input

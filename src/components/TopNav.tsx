@@ -6,7 +6,7 @@ import copyToClipboard from "@/features/dashboard/utils/copyToClipboard";
 // import { useRouter } from "next/router";
 
 
-export default function Topnav({business}) {
+export default function Topnav({business}:any) {
   // const router = useRouter()
   const token = Cookies.get("token");
 
@@ -17,7 +17,7 @@ export default function Topnav({business}) {
  }
 
  function copyLink(){
-   const copied = copyToClipboard(business.name)
+   const copied:any = copyToClipboard(business.name)
 console.log(copied)
    if(copied?.success){
     alert("Copied")
