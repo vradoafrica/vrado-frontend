@@ -3,45 +3,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Button from '@/components/Button';
+import Input from '@/components/Input';
+
 
 export default function NGORegistrationPage() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<any>({});
   const [errors, setErrors] = useState<any>({});
-  const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
-  const Input = ({ name, placeholder, type = 'text', value, onChange, error }: any) => (
-    <div className="relative">
-      <input
-        ref={(el) => (inputRefs.current[name] = el)}
-        name={name}
-        className={`peer w-full px-4 pt-6 pb-2 rounded-xl border text-sm bg-white transition focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm ${error ? 'border-red-500' : 'border-gray-300'}`}
-        placeholder=" "
-        type={type}
-        value={value || ''}
-        onChange={(e) => {
-          onChange(e);
-          setTimeout(() => inputRefs.current[name]?.focus(), 0);
-        }}
-      />
-      <label
-        htmlFor={name}
-        className="absolute left-4 top-3 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600"
-      >
-        {placeholder}
-      </label>
-      {error && <p className="text-red-500 text-xs italic mt-1">{error}</p>}
-    </div>
-  );
-
-  const Button = ({ children, ...props }: any) => (
-    <button
-      {...props}
-      className="rounded-xl px-6 py-3 text-white font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 transition-all shadow-md"
-    >
-      {children}
-    </button>
-  );
 
   useEffect(() => {
     const savedData = localStorage.getItem('ngoFormData');
@@ -114,7 +84,7 @@ export default function NGORegistrationPage() {
                 <Input name="email" type="email" placeholder="Email" value={formData.email} onChange={(e: any) => updateFormData({ email: e.target.value })} error={errors.email} />
                 <Input name="phone" type="tel" placeholder="Phone" value={formData.phone} onChange={(e: any) => updateFormData({ phone: e.target.value })} error={errors.phone} />
                 <div className="col-span-2 flex justify-end">
-                  <Button onClick={nextStep}>Next</Button>
+                  <Button handleClick={nextStep}>Next</Button>
                 </div>
               </div>
             )}
@@ -124,8 +94,8 @@ export default function NGORegistrationPage() {
                 <Input name="ngoName1" placeholder="Proposed NGO Name" value={formData.ngoName1} onChange={(e: any) => updateFormData({ ngoName1: e.target.value })} error={errors.ngoName1} />
                 <Input name="officeAddress" placeholder="Office Address" value={formData.officeAddress} onChange={(e: any) => updateFormData({ officeAddress: e.target.value })} error={errors.officeAddress} />
                 <div className="col-span-2 flex justify-between">
-                  <Button onClick={prevStep}>Back</Button>
-                  <Button onClick={nextStep}>Next</Button>
+                  <Button handleClick={prevStep}>Back</Button>
+                  <Button handleClick={nextStep}>Next</Button>
                 </div>
               </div>
             )}
@@ -135,8 +105,8 @@ export default function NGORegistrationPage() {
                 <Input name="trusteeName" placeholder="Trustee Name" value={formData.trusteeName} onChange={(e: any) => updateFormData({ trusteeName: e.target.value })} error={errors.trusteeName} />
                 <Input name="trusteePhone" placeholder="Trustee Phone" value={formData.trusteePhone} onChange={(e: any) => updateFormData({ trusteePhone: e.target.value })} error={errors.trusteePhone} />
                 <div className="col-span-2 flex justify-between">
-                  <Button onClick={prevStep}>Back</Button>
-                  <Button onClick={nextStep}>Next</Button>
+                  <Button handleClick={prevStep}>Back</Button>
+                  <Button handleClick={nextStep}>Next</Button>
                 </div>
               </div>
             )}
@@ -173,24 +143,36 @@ export default function NGORegistrationPage() {
                   </div>
                 ))}
                 <div className="col-span-2 flex justify-between">
-                  <Button onClick={prevStep}>Back</Button>
-                  <Button onClick={nextStep}>Next</Button>
+                  <Button handleClick={prevStep}>Back</Button>
+                  <Button handleClick={nextStep}>Next</Button>
                 </div>
               </div>
             )}
 
-            {step === 5 && (
+{step === 5 && (
               <div className="space-y-4">
-                <h2 className="text-lg font-semibold">Preview</h2>
-                <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
-                  {JSON.stringify(formData, null, 2)}
-                </pre>
-                <div className="flex justify-between">
-                  <Button onClick={prevStep}>Back</Button>
-                  <Button onClick={() => alert('Form submitted!')}>Submit</Button>
+                <h2 className="text-xl font-semibold text-gray-700">Review Your Submission</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+                  {Object.keys(formData).map((key) => (
+                    <div key={key} className="flex flex-col">
+                      <span className="text-xs text-gray-500 uppercase font-semibold">{key.replace(/([A-Z])/g, ' $1')}</span>
+                      {formData[key]?.previewUrl ? (
+                        <img src={formData[key].previewUrl} alt={key} className="h-24 mt-1 rounded border object-contain" />
+                      ) : (
+                        <span className="text-sm text-gray-800 mt-1 break-words">
+                          {typeof formData[key] === 'object' && formData[key]?.name ? formData[key].name : formData[key]}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between mt-6">
+                  <Button handleClick={prevStep}>Back</Button>
+                  <Button handleClick={() => alert('Form submitted!')}>Submit</Button>
                 </div>
               </div>
             )}
+
 
           </motion.div>
         </AnimatePresence>

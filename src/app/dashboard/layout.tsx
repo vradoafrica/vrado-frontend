@@ -1,4 +1,3 @@
-
 import SideBar from "@/components/Sidebar";
 import Topnav from "@/components/TopNav";
 import { getBusinessDetails } from "@/features/auth/services/api";
@@ -24,7 +23,7 @@ export default async function Layout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
-      <Topnav />
+      <Topnav business={businessDetails.data} />
 
         {/* Dashboard Content */}
         <main className="md:p-6 p-0 md:pt-4 pt-10 space-y-6">

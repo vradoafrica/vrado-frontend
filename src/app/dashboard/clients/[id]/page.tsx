@@ -5,6 +5,7 @@ import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const ClientDetailsPage = () => {
   const router = useRouter();
@@ -50,19 +51,33 @@ const ClientDetailsPage = () => {
 
   if (!client) {
     return (
-      <div>
-        <button onClick={() => router.back()} className="flex items-center text-blue-600 hover:underline mb-4">
-        <ArrowLeft className="w-4 h-4 mr-2" /> Back
-      </button>
-      <div className="text-center mt-10 text-gray-600">Client not found.</div>;
-      </div>
-    )
-    
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mt-10 text-gray-600"
+      >
+        <button
+          onClick={() => router.back()}
+          className="flex items-center text-blue-600 hover:underline mb-4"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" /> Back
+        </button>
+        Client not found.
+      </motion.div>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded shadow">
-      <button onClick={() => router.back()} className="flex items-center text-blue-600 hover:underline mb-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-4xl mx-auto p-6 bg-white rounded shadow"
+    >
+      <button
+        onClick={() => router.back()}
+        className="flex items-center text-blue-600 hover:underline mb-4"
+      >
         <ArrowLeft className="w-4 h-4 mr-2" /> Back
       </button>
 
@@ -72,7 +87,7 @@ const ClientDetailsPage = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Personal Information</h2>
         <div className="flex items-center gap-4 mb-4">
-          <Image 
+          <Image
             src={client.profileImage}
             alt="Profile"
             width={100}
@@ -92,7 +107,7 @@ const ClientDetailsPage = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Business Information</h2>
         <div className="flex items-center gap-4 mb-4">
-          <Image 
+          <Image
             src={client.businessLogo}
             alt="Business Logo"
             width={100}
@@ -119,7 +134,7 @@ const ClientDetailsPage = () => {
       <section>
         <h2 className="text-xl font-semibold mb-4">Identity Verification</h2>
         <div className="flex items-center gap-4">
-          <Image 
+          <Image
             src={client.idDocument}
             alt="ID Document"
             height={100}
@@ -132,7 +147,7 @@ const ClientDetailsPage = () => {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 };
 
